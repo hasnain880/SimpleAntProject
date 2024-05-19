@@ -1,0 +1,34 @@
+<!-- build.xml -->
+<project name="SimpleAntProject" default="compile" basedir=".">
+    <!-- Set global properties for this build -->
+    <property name="src.dir" location="src"/>
+    <property name="build.dir" location="build"/>
+    <property name="dist.dir" location="dist"/>
+
+    <!-- Create directories for compiled classes and distribution JAR -->
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <!-- Compile the source code -->
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${build.dir}"/>
+    </target>
+
+    <!-- Create a JAR file from the compiled classes -->
+    <target name="jar" depends="compile">
+        <mkdir dir="${dist.dir}/lib"/>
+        <jar destfile="${dist.dir}/lib/SimpleAntProject.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="com.example.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- Clean up build artifacts -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+</project>
